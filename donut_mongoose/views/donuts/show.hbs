@@ -1,8 +1,9 @@
+    
 <main>
 
 	<h2>You are viewing:
 
-		<<<< DONUT NAME HERE >>>>
+		{{donut.name}}
 
 	</h2>
 
@@ -11,37 +12,58 @@
 	<div class="donut-container-show">
 		<h2 id="donut-name">
 
-				<<<< DONUT NAME HERE >>>>
+			{{donut.name}}
 
 		</h2>
 
-				<<<< DONUT IMAGE HERE >>>>
+		<img src="{{donut.img}}">
 
 		<br>
 		<h3>Description:</h3>
-			<p>
+		<p>
 
-				<<<< DONUT DESCRIPTION HERE >>>>
+			{{donut.description}}
 
-			</p><br>
+		</p><br>
 		<h3>Price:</h3>
-			<p id="cost">$
+		<p id="cost">$
 
-				<<<< DONUT PRICE HERE >>>> each</p><br>
+			{{donut.price}} each</p><br>
 
-			<h3 id="quantity">
+		<h3 id="quantity">
 
-	 				<<<< DONUT QUANTITY >>>> remaining
+			{{donut.qty}} remaining
 
-			</h3>
+		</h3>
 
-			<br>
+		<br>
+<h1>ADD NEW INGREDIENT FORM:</h1>
+<form action="{{donut._id}}/ingredient" method="POST">
+	<input type="text" name="name" placeholder="name">
+	<input type="text" name="amount" placeholder="description">
+	{{!-- HERE IS WHERE IM PUTTING IN THE RELATED KEY THE MODEL 1'S ID INTO THE MODEL2's FIELD NAMED "DONUTID" --}}
+	<input type="text" name="donutId" hidden="hidden" value={{donut._id}}>
+	<input type="submit" value="Submit">
+</form>
 
-			<<<< LINK TO THE DONUT's EDIT PAGE >>>>
+<h1>LISTED RELATED TO THIS DONUT: </h1>
+{{#each ingredients}}
+<a href='/{{../donut._id}}/ingredient/{{_id}}'>{{name}}</a>
+{{amount}}
+<br/>
+{{/each}}
 
-			<<<< BONUS: BUTTON THAT UPDATES THE COUNT >>>>
 
-		</div>
 
-		<<<< BUTTON THAT DELETED THE DONUT >>>>
+		<a href="{{donut._id}}/edit">
+			<h3>Edit this Donut</h3>
+		</a>
+		<form action="/{{donut._id}}?_method=DELETE" method="POST">
+			<input type="submit" value="delete this donut">
+		</form>
+		<form action="/{{donut._id}}/buy?_method=PUT" method="POST">
+			<input type="submit" value="Buy">
+		</form>
+	</div>
+
 </main>
